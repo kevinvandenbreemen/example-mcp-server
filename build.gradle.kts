@@ -34,4 +34,14 @@ kotlin {
 
 application {
     mainClass.set("com.vandenbreemen.MainKt")
+
+    applicationDefaultJvmArgs = listOf(
+        "-Djava.awt.headless=true"
+    )
+}
+
+tasks.withType<JavaExec> {
+    standardInput = System.`in`
+    standardOutput = System.out
+    errorOutput = System.err
 }

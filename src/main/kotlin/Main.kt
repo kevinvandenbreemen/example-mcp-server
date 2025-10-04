@@ -11,6 +11,7 @@ import io.modelcontextprotocol.kotlin.sdk.TextContent
 import io.modelcontextprotocol.kotlin.sdk.TextResourceContents
 import io.modelcontextprotocol.kotlin.sdk.Tool
 import io.modelcontextprotocol.kotlin.sdk.ToolAnnotations
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.asSink
@@ -102,11 +103,11 @@ fun main() {
     )
     runBlocking {
         server.connect(transport)
-        val done = Job()
+
+        val closeSignal = CompletableDeferred<Unit>()
         server.onClose {
-            done.complete()
+            closeSignal.complete(Unit)
         }
-        done.join()
-        println("Server closed")
+        closeSignal.await()
     }
 }
