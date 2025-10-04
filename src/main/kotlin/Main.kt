@@ -1,7 +1,11 @@
 package com.vandenbreemen
 
 import io.modelcontextprotocol.kotlin.sdk.CallToolResult
+import io.modelcontextprotocol.kotlin.sdk.EmptyRequestResult
 import io.modelcontextprotocol.kotlin.sdk.Implementation
+import io.modelcontextprotocol.kotlin.sdk.LoggingLevel
+import io.modelcontextprotocol.kotlin.sdk.LoggingMessageNotification
+import io.modelcontextprotocol.kotlin.sdk.Method.Defined
 import io.modelcontextprotocol.kotlin.sdk.ReadResourceResult
 import io.modelcontextprotocol.kotlin.sdk.server.Server
 import io.modelcontextprotocol.kotlin.sdk.server.ServerOptions
@@ -43,7 +47,7 @@ fun main() {
 
                 )
             )
-        )
+        ),
     )
 
 // Add a resource
@@ -103,6 +107,17 @@ fun main() {
     )
     runBlocking {
         server.connect(transport)
+
+        //  Workaround for https://github.com/modelcontextprotocol/kotlin-sdk/issues/293#event-19961251030
+
+        //  Take a look in types.kt for defined method types
+        server.setRequestHandler<LoggingMessageNotification.SetLevelRequest>(
+            method = Defined.LoggingSetLevel,
+
+        ) { setLevelRq, _log ->
+            EmptyRequestResult()
+        }
+
 
         val closeSignal = CompletableDeferred<Unit>()
         server.onClose {
