@@ -8,3 +8,20 @@ You can use the inspector, via npx, like this:
 ```bash
 npx @modelcontext/inspector ./gradlew run --quiet
 ```
+
+# How do I Hook This Up to my Copilot MCP Servers?
+
+You'll need to use the sh command with the correct working directory like this:
+
+```json
+      "example-server": {
+        "command": "sh",
+        "args": [
+          "-c",
+          "cd /path/where/you/checked/out/mcp-training && ./gradlew run --quiet"
+        ],
+        "env": {
+          [Env vars from your Inspector tool]
+        }
+      }
+```
