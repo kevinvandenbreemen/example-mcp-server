@@ -35,6 +35,7 @@ kotlin {
 application {
     mainClass.set("com.vandenbreemen.MainKt")
 
+    //  Prevent Gradle from exiting when it runs
     applicationDefaultJvmArgs = listOf(
         "-Djava.awt.headless=true"
     )
