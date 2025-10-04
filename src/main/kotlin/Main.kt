@@ -22,6 +22,7 @@ import kotlinx.io.asSink
 import kotlinx.io.asSource
 import kotlinx.io.buffered
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
@@ -84,7 +85,15 @@ fun main() {
                 },
                 required = listOf("inputText")
             ),
-            outputSchema = Tool.Output(),
+            outputSchema = Tool.Output(
+                properties = buildJsonObject {
+                    putJsonObject("outputText") {
+                        put("type", "string")
+                        put("description", "Echoed text")
+                    }
+                },
+                required = listOf("outputText")
+            ),
             annotations = ToolAnnotations(
                 "Example Tool"
             )
@@ -95,7 +104,15 @@ fun main() {
             content = listOf(TextContent("inputText is required"))
         )
 
-        CallToolResult(content = listOf(TextContent("Echo: $inputText")))
+        CallToolResult(
+            content = listOf(
+                TextContent(
+                    text = buildJsonObject {
+                        put("outputText", "Echo: $inputText")
+                    }.jsonObject.toString()
+                )
+            )
+        )
     }
 
 // Start server with stdio transport
