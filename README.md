@@ -6,7 +6,7 @@ This project is designed to help you learn how to use the Model Context Protocol
 # How to test this
 You can use the inspector, via npx, like this:
 ```bash
-npx @modelcontext/inspector ./gradlew run --quiet
+npx @modelcontextprotocol/inspector ./gradlew run --quiet
 ```
 
 # How do I Hook This Up to my Copilot MCP Servers?
