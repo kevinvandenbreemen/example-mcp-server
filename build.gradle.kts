@@ -10,6 +10,13 @@ repositories {
 }
 
 dependencies {
+
+    //  MCP stuff
+    val mcpVersion = "0.7.2" // check the repo badge for the latest
+    implementation("io.modelcontextprotocol:kotlin-sdk:$mcpVersion")
+    // Pick a Ktor engine if you’ll use HTTP/SSE transports (optional for stdio)
+    implementation("io.ktor:ktor-server-netty:2.3.12")
+
     testImplementation(kotlin("test"))
 }
 
