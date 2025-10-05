@@ -1,9 +1,19 @@
+mcp-server.log
 .gradle
 build/
 .idea
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+wrapper/
+.gradle/
+*.log
+*.hprof
+*.orig
+caches
+daemon
+native
+notifications
 
 *.iws
 *.iml
